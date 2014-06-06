@@ -69,6 +69,26 @@ FOREACH(lib ${libs})
     )
 ENDFOREACH(lib)
 
+# DelPrete: add main library
+SET(sources contact-selecter.cpp    feature-projected-line.cpp  solver-dyn-reduced.cpp
+            stack-template.t.cpp    task-dyn-limits.cpp         task-inequality.cpp
+            zmp-estimator.cpp       controller-pd.cpp           pseudo-robot-dynamic.cpp
+            solver-kine.cpp         task-dyn-inequality.cpp     task-dyn-passing-point.cpp
+            task-joint-limits.cpp   dynamic-integrator.cpp      robot-dyn-simu.cpp
+            solver-op-space.cpp     task-dyn-joint-limits.cpp   task-dyn-pd.cpp
+            task-weight.cpp )
+SET(LIBRARY_NAME ${PROJECT_NAME})
+ADD_LIBRARY(${LIBRARY_NAME} SHARED ${headers} ${sources})
+TARGET_LINK_LIBRARIES(${LIBRARY_NAME} sot-core)
+TARGET_LINK_LIBRARIES(${LIBRARY_NAME} dynamic-graph)
+TARGET_LINK_LIBRARIES(${LIBRARY_NAME} soth)
+PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} jrl-mal)
+PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} sot-core)
+PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} dynamic-graph)
+PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} soth)
+INSTALL(TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+# headers are already installed
+
 # Install empty __init__.py files in intermediate directories.
 INSTALL(FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/dynamic_graph/sot/dyninv/__init__.py

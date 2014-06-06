@@ -20,6 +20,7 @@
 #include <dynamic-graph/pool.h>
 #include <sot/core/debug.hh>
 #include <sot/core/task-abstract.hh>
+#include <sot-dyninv/stack-template.h>
 
 namespace dynamicgraph
 {
